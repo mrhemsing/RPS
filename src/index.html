@@ -1,56 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Rock, Paper, Scissors Battle</title>
-  <meta name="author" content="Lewis Nakao">
-  <meta name="description" content="Watch simulations of emoji Rock, Paper, Scissors battle it out.">
-  <meta name="keywords" content="HTML Canvas, JavaScript, Emoji, Open Source">
-  
+  <meta name="author" content="Lewis Nakao" />
+  <meta
+    name="description"
+    content="Watch simulations of emoji Rock, Paper, Scissors battle it out." />
+  <meta name="keywords" content="HTML Canvas, JavaScript, Emoji, Open Source" />
+  <link rel="stylesheet" type="text/css" href="index.css" />
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="📃 Rock, Paper, Scissors Battle">
-  <meta name="twitter:description" content="Watch simulations of emoji Rock, Paper, Scissors battle it out.">
-  <meta name="twitter:site" content="@lewdev">
-  <meta name="twitter:creator" content="@lewdev">
-  <meta name="twitter:image" content="https://lewdev.github.io/apps/rock-paper-scissors-battle/assets/banner-1200x630.png">
-  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="📃 Rock, Paper, Scissors Battle" />
+  <meta
+    name="twitter:description"
+    content="Watch simulations of emoji Rock, Paper, Scissors battle it out." />
+  <meta name="twitter:site" content="@lewdev" />
+  <meta name="twitter:creator" content="@lewdev" />
+  <meta
+    name="twitter:image"
+    content="https://lewdev.github.io/apps/rock-paper-scissors-battle/assets/banner-1200x630.png" />
+
   <!-- Open Graph general (Facebook, Pinterest)-->
-  <meta property="og:title" content="📃 Rock, Paper, Scissors Battle">
-  <meta property="og:description" content="Watch simulations of emoji Rock, Paper, Scissors battle it out.">
-  <meta property="og:url" content="https://lewdev.github.io/apps/rock-paper-scissors-battle">
-  <meta property="og:site_name" content="undefined">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://lewdev.github.io/apps/rock-paper-scissors-battle/assets/banner-1200x630.png">
+  <meta property="og:title" content="📃 Rock, Paper, Scissors Battle" />
+  <meta
+    property="og:description"
+    content="Watch simulations of emoji Rock, Paper, Scissors battle it out." />
+  <meta
+    property="og:url"
+    content="https://lewdev.github.io/apps/rock-paper-scissors-battle" />
+  <meta property="og:site_name" content="undefined" />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:image"
+    content="https://lewdev.github.io/apps/rock-paper-scissors-battle/assets/banner-1200x630.png" />
 
   <!-- https://realfavicongenerator.net -->
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
-  <link rel="manifest" href="./assets/favicon/site.webmanifest">
-  <link rel="mask-icon" href="./assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="./assets/favicon/apple-touch-icon.png" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="./assets/favicon/favicon-32x32.png" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="./assets/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+  <link
+    rel="mask-icon"
+    href="./assets/favicon/safari-pinned-tab.svg"
+    color="#5bbad5" />
+  <meta name="msapplication-TileColor" content="#da532c" />
+  <meta name="theme-color" content="#ffffff" />
 
   <!-- CSS -->
   <style>
-  html, body { margin: 0; padding: 0; box-sizing: border-box; overflow: hidden; }
-  #a { position: relative; display: block; }
-  /* .game-click-play {background-color: black;}
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    #a {
+      position: relative;
+      display: block;
+    }
+    /* .game-click-play {background-color: black;}
   .title-game-click-play {color: white;} */
-  #startButton {border-radius: 20px; border: white; color: white; background: #2e2e92; width: 120px; height: 40px; font-size: 16px; cursor: pointer;margin-top: 540px;margin-right: 900px;}
-  #startButton:hover {color: #2e2e92; background: white; border: 2px solid #2e2e92;}
   </style>
 </head>
 <body>
-<canvas id=a></canvas>
-<div id = "temp_div" style="position:absolute;right:0;top:0;font-size:24px;align-items: center;"></div>
+  <div id="wrapper">
+    <div id="header">
+      <h1>RPS Scoreboard</h1>
+      <div id="wincount"></div>
+    </div>
+    <canvas id="a"></canvas>
+    <div id="temp_div"></div>
 
-<script type="text/javascript" src=script.js></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2833478-13"></script>
-<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());gtag('config', 'UA-2833478-13');</script>
+    <script type="text/javascript" src="script.js"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-2833478-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-2833478-13');
+    </script>
+  </div>
 </body>

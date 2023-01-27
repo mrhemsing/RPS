@@ -1,0 +1,46 @@
+#wrapper {
+  width: 800px;
+  margin: 0 auto;
+  font-family: arial !important;
+}
+h1 {
+  margin-left: 20px;
+}
+#header {
+  display: block;
+}
+#wincount {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+#temp_div {
+  position: absolute;
+  border: 1px solid #000;
+  width: 800px;
+  height: 380px;
+  right: 355px;
+  top: 121px;
+  font-size: 24px;
+  align-items: center;
+  text-align: center;
+}
+#startButton {
+  border-radius: 20px;
+  border: white;
+  color: white;
+  background: #2e2e92;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 230px;
+}
+#startButton:hover {
+  color: #2e2e92;
+  background: white;
+  border: 2px solid #2e2e92;
+}
+canvas {
+  max-width: 800px;
+  max-height: 405px;
+}
