@@ -1,46 +1,144 @@
 #wrapper {
-  width: 800px;
+  /* width: 800px;
   margin: 0 auto;
-  font-family: arial !important;
+  font-family: arial !important; */
 }
-h1 {
+/* h1 {
   margin-left: 20px;
-}
+} */
 #header {
-  display: block;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  /* color: #386a81; */
+  color: #fff;
+  font-size: 26px;
+  font-weight: 500;
+  width: 44%;
+  margin: auto;
+  border-radius: 8px;
 }
 #wincount {
+  margin-top: -19px;
   margin-left: 20px;
   margin-bottom: 20px;
+  padding: 0px 12px 27px 0px;
 }
 #temp_div {
+  /* position: absolute; */
+  color: #fff !important;
+
+  width: 800px;
+  height: 385px;
+  margin: auto;
+  /* right: 536px; */
+  text-align: center;
+  /* margin-left: 28%; */
+  /* margin-top: 43px;
   position: absolute;
   border: 1px solid #000;
   width: 800px;
-  height: 380px;
-  right: 355px;
-  top: 121px;
+  height: 380px; */
+  /* right: 355px; */
+  /* top: 121px; */
   font-size: 24px;
-  align-items: center;
+  /* align-items: center; */
   text-align: center;
 }
 #startButton {
   border-radius: 20px;
   border: white;
   color: white;
-  background: #2e2e92;
-  width: 120px;
+  margin-left: -4%;
+  background: #0079ca;
+  width: 130px;
   height: 40px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 230px;
+  margin-top: 20px;
+  position: absolute;
 }
 #startButton:hover {
   color: #2e2e92;
   background: white;
-  border: 2px solid #2e2e92;
 }
 canvas {
   max-width: 800px;
-  max-height: 405px;
+  min-height: 385px;
+}
+.game-background-image {
+  background-color: #000;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+  #header {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: bisque;
+    font-size: 16px !important;
+    width: 86% !important;
+
+    /* display: block; */
+    /* margin-right: 288px !important; */
+    /* margin-left: -99px; */
+  }
+  #wincount {
+    margin-top: 2px !important;
+    margin-left: 20px;
+    margin-bottom: 20px !important;
+    padding: 0px 11px 20px 0px !important;
+  }
+  #temp_div {
+    width: 85% !important;
+    font-size: 24px;
+    text-align: center;
+  }
+  .canvas-width {
+    width: 100% !important;
+    height: auto !important;
+  }
+  #startButton {
+    /* border-radius: 20px;
+    border: white;
+    color: white; */
+    /* margin-left: -15% !important; */
+    /* background: #0079ca;
+    width: 130px;
+    height: 40px;
+    font-size: 16px; */
+    text-align: center;
+    cursor: pointer;
+    margin-top: -114px !important;
+    position: none !important;
+    margin-left: -58px !important;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  #startButton {
+    border-radius: 20px;
+    border: white;
+    color: white;
+    margin-left: -7% !important;
+    background: #0079ca;
+    width: 130px;
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: -112px !important;
+    /* position: absolute; */
+  }
+  #header {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    /* color: #386a81; */
+    color: #fff;
+    font-size: 26px;
+    background: #edefff;
+    box-shadow: 2px 3.464px 24px 0px rgb(106 105 194 / 25%);
+    font-weight: 500;
+    width: 79% !important;
+    margin: auto;
+    border-radius: 8px;
+  }
 }

@@ -7,7 +7,7 @@ let c = a.getContext('2d'), // no more $type conditional
   ruleSets = [
     {
       id: 1,
-      name: '🪨📄✂️  Rock, Paper, Scissors',
+      name: '🪨📄✂️',
       rules: '✂️ cuts 📄 covers 🪨 crushes ✂️'
     }
   ],
@@ -87,25 +87,69 @@ const start = () => {
     clear();
 
     text.split('\n').forEach((sc, index) => {
-      write(
-        sc,
-        center.x - window.innerHeight / 4 + index * 180,
-        center.y - SIZE * 2,
-        SIZE * 3,
-        (c.fillStyle = 'white'),
-        true
-      );
-    });
-    count.split('\n').forEach((x, index) => {
-      if (index <= 2) {
+      if (window.innerWidth <= 450) {
+        var tms = 1;
+        if (index == 0) {
+          tms = 130;
+        }
+        if (index == 1) {
+          tms = 120;
+        }
+        if (index == 2) {
+          tms = 120;
+        }
+
         write(
-          x,
-          center.x - window.innerHeight / 4 + index * 180,
-          center.y + SIZE * 2,
-          SIZE * 3,
+          sc,
+          center.x - window.innerWidth / 4 + index * tms,
+          center.y,
+          SIZE * 2,
           (c.fillStyle = 'white'),
           true
         );
+      } else {
+        write(
+          sc,
+          center.x - window.innerHeight / 4 + index * 180,
+          center.y - SIZE * 2,
+          SIZE * 2,
+          (c.fillStyle = 'white'),
+          true
+        );
+      }
+    });
+    count.split('\n').forEach((x, index) => {
+      if (index <= 2) {
+        if (window.innerWidth <= 450) {
+          var tms = 1;
+          if (index == 0) {
+            tms = 130;
+          }
+          if (index == 1) {
+            tms = 120;
+          }
+          if (index == 2) {
+            tms = 120;
+          }
+
+          write(
+            x,
+            center.x - window.innerWidth / 4 + index * tms,
+            center.y + SIZE * 3,
+            SIZE * 2,
+            (c.fillStyle = 'white'),
+            true
+          );
+        } else {
+          write(
+            x,
+            center.x - window.innerHeight / 4 + index * 180,
+            center.y + SIZE * 2,
+            SIZE * 2,
+            (c.fillStyle = 'white'),
+            true
+          );
+        }
       }
     });
   }
