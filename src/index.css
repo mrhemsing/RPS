@@ -26,7 +26,6 @@
 #temp_div {
   /* position: absolute; */
   color: #fff !important;
-
   width: 800px;
   height: 385px;
   margin: auto;
@@ -42,7 +41,6 @@
   /* top: 121px; */
   font-size: 24px;
   /* align-items: center; */
-  text-align: center;
 }
 #startButton {
   border-radius: 20px;
@@ -85,13 +83,14 @@ canvas {
   #wincount {
     margin-top: 2px !important;
     margin-left: 20px;
-    margin-bottom: 20px !important;
+    margin-bottom: 0px !important;
     padding: 0px 11px 20px 0px !important;
   }
   #temp_div {
     width: 85% !important;
     font-size: 24px;
     text-align: center;
+    vertical-align: text-top;
   }
   .canvas-width {
     width: 100% !important;
