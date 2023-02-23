@@ -1,28 +1,33 @@
-//let a=document.createElement("canvas");
-
 const emojiNames = {
   '🪨': 'rock',
   '📄': 'paper',
   '✂️': 'scissors'
 };
-const showWinScreen = visible => {
-  if (visible) {
-    document.querySelector('canvas').style.display = 'none';
-    document.querySelector('#win-screen').style.display = 'block';
-  } else {
-    document.querySelector('canvas').style.display = 'block';
-    document.querySelector('#win-screen').style.display = 'none';
-  }
+const hideAll = () => {
+  document
+    .querySelectorAll('canvas, #win-screen, #round-screen, #intro-screen')
+    .forEach(node => (node.style.display = 'none'));
 };
-const showRoundScreen = visible => {
-  if (visible) {
-    document.querySelector('canvas').style.display = 'none';
-    document.querySelector('#round-screen').style.display = 'block';
-    document.querySelector('#win-screen').style.display = 'none';
-  } else {
-    document.querySelector('canvas').style.display = 'block';
-    document.querySelector('#round-screen').style.display = 'none';
-  }
+const showStartButton = visibility => {
+  document.querySelector('#startButton').style.display = visibility
+    ? 'block'
+    : 'none';
+};
+const showCanvas = () => {
+  hideAll();
+  document.querySelector('canvas').style.display = 'block';
+};
+const showWinScreen = () => {
+  hideAll();
+  document.querySelector('#win-screen').style.display = 'block';
+};
+const showRoundScreen = () => {
+  hideAll();
+  document.querySelector('#round-screen').style.display = 'block';
+};
+const showIntroScreen = () => {
+  hideAll();
+  document.querySelector('#intro-screen').style.display = 'block';
 };
 const displayWinner = p => {
   showWinScreen(true);
@@ -61,7 +66,18 @@ let c = a.getContext('2d'), // no more $type conditional
   gameRestartTimeout = null,
   gameStartTimeout = null,
   selected = ruleSets[0];
-startButton = null;
+startButton = document.querySelector('#startButton');
+startButton.addEventListener('click', () => {
+  showWinScreen(false);
+  showRoundScreen(false);
+  //startButton.innerHTML = 'Starting...';
+  gameStartTimeout = setTimeout(() => {
+    gameOn = true;
+    //startButton.remove();
+    showStartButton(false);
+    //startButton.innerHTML = 'Start';
+  }, 1000);
+});
 rounds = 1;
 victories_dict = {};
 
@@ -70,10 +86,7 @@ let init = () => {
   resize();
   ruleSets.map(r => (r.rulesArr = r.rules.split(' ')));
   if (!myInterval) myInterval = setInterval(update, FPS);
-  startButton = d.createElement('button');
-  startButton.id = 'startButton';
-  startButton.innerHTML = 'Start';
-  startButton.class = 'startButton';
+
   start();
 };
 const initEmojis = () => {
@@ -88,9 +101,14 @@ const initEmojis = () => {
   emojis = Object.keys(targetMap);
 };
 const start = () => {
-  showRoundScreen(true);
+  if (rounds > 1) {
+    showRoundScreen(true);
+    showStartButton(true);
+  } else showIntroScreen();
+  document
+    .querySelectorAll('.round-number')
+    .forEach(x => (x.innerHTML = rounds));
 
-  document.querySelector('#round-number').innerHTML = rounds;
   initEmojis();
   let o;
   for (i = 0; i < 90; i++) {
@@ -192,20 +210,8 @@ const start = () => {
     c.fillStyle = '#0000';
     clear();
 
-    temp_div.appendChild(startButton);
+    //temp_div.appendChild(startButton);
   }, 3000);
-
-  startButton.addEventListener('click', () => {
-    document.querySelector('canvas').style.display = 'block';
-    document.querySelector('#win-screen').style.display = 'none';
-    showRoundScreen(false);
-    startButton.innerHTML = 'Starting...';
-    gameStartTimeout = setTimeout(() => {
-      gameOn = true;
-      startButton.remove();
-      startButton.innerHTML = 'Start';
-    }, 1000);
-  });
 };
 let pieceMap = {};
 
@@ -221,7 +227,9 @@ let t = Date.now(),
   tempY;
 let update = () => {
   if (!gameOn) return;
-  showRoundScreen(false);
+
+  showCanvas(true);
+
   elapsed = Date.now() - t;
   clear();
   pieces.sort((a, b) => {
@@ -294,6 +302,7 @@ let update = () => {
 
   //check end condition
   if (isEndGame()) {
+    updateWinCountInHeader(victories_dict);
     //showRoundScreen(true);
     gameRestartTimeout = setTimeout(start, 2000);
     //setTimeout(() => startButton.click(), 2002);
@@ -314,21 +323,13 @@ let getFeed = (a, b) => {
   }
   return `${a} defeated ${b}`;
 };
-let renderKillFeed = () =>
-  killFeed.map((o, i) => write(o, SIZE / 2, tempY + i * SIZE, SIZE * 0.7));
+
 let isEndGame = () => emojis.filter(o => didWin(o)).length === 1;
 let isDead = o => !pieceMap[o] || pieceMap[o].length === 0;
 let didWin = p => {
   if (emojis.filter(o => o !== p && isDead(o)).length === emojis.length - 1) {
     clear();
-    /* write(
-      p + ' WINS',
-      center.x,
-      center.y,
-      SIZE * 3,
-      (c.fillStyle = 'white'),
-      true
-    );*/
+
     displayWinner(p);
     rounds += 1;
     if (Object.keys(victories_dict).includes(p)) {
@@ -339,10 +340,11 @@ let didWin = p => {
 
     return true;
   }
-  updateWinCountInHeader(victories_dict);
+
   return false;
 };
 const updateWinCountInHeader = (dict = {}) => {
+  console.log('Win count called', dict);
   const el = document.getElementById('wincount');
   let text = `<span>${dict['🪨'] || 0}</span><span>${
     dict['📄'] || 0
