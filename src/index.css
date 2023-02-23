@@ -165,3 +165,7 @@ canvas {
 #win-screen {
   display: none;
 }
+
+#round-display {
+  color: white;
+}

@@ -14,6 +14,16 @@ const showWinScreen = visible => {
     document.querySelector('#win-screen').style.display = 'none';
   }
 };
+const showRoundScreen = visible => {
+  if (visible) {
+    document.querySelector('canvas').style.display = 'none';
+    document.querySelector('#round-screen').style.display = 'block';
+    document.querySelector('#win-screen').style.display = 'none';
+  } else {
+    document.querySelector('canvas').style.display = 'block';
+    document.querySelector('#round-screen').style.display = 'none';
+  }
+};
 const displayWinner = p => {
   showWinScreen(true);
   document
@@ -78,6 +88,9 @@ const initEmojis = () => {
   emojis = Object.keys(targetMap);
 };
 const start = () => {
+  showRoundScreen(true);
+
+  document.querySelector('#round-number').innerHTML = rounds;
   initEmojis();
   let o;
   for (i = 0; i < 90; i++) {
@@ -178,20 +191,14 @@ const start = () => {
   setTimeout(() => {
     c.fillStyle = '#0000';
     clear();
-    write(
-      'Round ' + rounds,
-      center.x,
-      center.y,
-      SIZE * 2,
-      (c.fillStyle = 'white'),
-      true
-    );
+
     temp_div.appendChild(startButton);
   }, 3000);
 
   startButton.addEventListener('click', () => {
     document.querySelector('canvas').style.display = 'block';
     document.querySelector('#win-screen').style.display = 'none';
+    showRoundScreen(false);
     startButton.innerHTML = 'Starting...';
     gameStartTimeout = setTimeout(() => {
       gameOn = true;
@@ -214,6 +221,7 @@ let t = Date.now(),
   tempY;
 let update = () => {
   if (!gameOn) return;
+  showRoundScreen(false);
   elapsed = Date.now() - t;
   clear();
   pieces.sort((a, b) => {
@@ -286,8 +294,9 @@ let update = () => {
 
   //check end condition
   if (isEndGame()) {
+    //showRoundScreen(true);
     gameRestartTimeout = setTimeout(start, 2000);
-    setTimeout(() => startButton.click(), 2002);
+    //setTimeout(() => startButton.click(), 2002);
     gameOn = false;
   }
 };
