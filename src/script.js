@@ -96,87 +96,84 @@ const start = () => {
     tempY = center.y - SIZE * 2;
     write(selected.name, center.x, tempY + SIZE * 1.5, SIZE * 1, true);
   } else {
-    let text = '';
-    let count = '';
-    emojis.forEach(emoji => {
-      if (victories_dict[emoji]) {
-        text += emoji;
-        count += victories_dict[emoji];
-      } else {
-        text += emoji;
-        count += 0;
-      }
-      text += '\n';
-      count += '\n';
-    });
-    clear();
-
-    text.split('\n').forEach((sc, index) => {
-      if (window.innerWidth <= 450) {
-        var tms = 1;
-        if (index == 0) {
-          tms = 130;
-        }
-        if (index == 1) {
-          tms = 120;
-        }
-        if (index == 2) {
-          tms = 120;
-        }
-
-        write(
-          sc,
-          center.x - window.innerWidth / 4 + index * tms,
-          center.y,
-          SIZE * 2,
-          (c.fillStyle = 'white'),
-          true
-        );
-      } else {
-        write(
-          sc,
-          center.x - window.innerHeight / 4 + index * 180,
-          center.y - SIZE * 2,
-          SIZE * 2,
-          (c.fillStyle = 'white'),
-          true
-        );
-      }
-    });
-    count.split('\n').forEach((x, index) => {
-      if (index <= 2) {
-        if (window.innerWidth <= 450) {
-          var tms = 1;
-          if (index == 0) {
-            tms = 130;
-          }
-          if (index == 1) {
-            tms = 120;
-          }
-          if (index == 2) {
-            tms = 120;
-          }
-
-          write(
-            x,
-            center.x - window.innerWidth / 4 + index * tms,
-            center.y + SIZE * 3,
-            SIZE * 2,
-            (c.fillStyle = 'white'),
-            true
-          );
-        } else {
-          write(
-            x,
-            center.x - window.innerHeight / 4 + index * 180,
-            center.y + SIZE * 2,
-            SIZE * 2,
-            (c.fillStyle = 'white'),
-            true
-          );
-        }
-      }
-    });
+    // let text = '';
+    // let count = '';
+    // emojis.forEach(emoji => {
+    //   if (victories_dict[emoji]) {
+    //     text += emoji;
+    //     count += victories_dict[emoji];
+    //   } else {
+    //     text += emoji;
+    //     count += 0;
+    //   }
+    //   text += '\n';
+    //   count += '\n';
+    // });
+    // clear();
+    // text.split('\n').forEach((sc, index) => {
+    //   if (window.innerWidth <= 450) {
+    //     var tms = 1;
+    //     if (index == 0) {
+    //       tms = 130;
+    //     }
+    //     if (index == 1) {
+    //       tms = 120;
+    //     }
+    //     if (index == 2) {
+    //       tms = 120;
+    //     }
+    //     write(
+    //       sc,
+    //       center.x - window.innerWidth / 4 + index * tms,
+    //       center.y,
+    //       SIZE * 2,
+    //       (c.fillStyle = 'white'),
+    //       true
+    //     );
+    //   } else {
+    //     write(
+    //       sc,
+    //       center.x - window.innerHeight / 4 + index * 180,
+    //       center.y - SIZE * 2,
+    //       SIZE * 2,
+    //       (c.fillStyle = 'white'),
+    //       true
+    //     );
+    //   }
+    // });
+    // count.split('\n').forEach((x, index) => {
+    //   if (index <= 2) {
+    //     if (window.innerWidth <= 450) {
+    //       var tms = 1;
+    //       if (index == 0) {
+    //         tms = 130;
+    //       }
+    //       if (index == 1) {
+    //         tms = 120;
+    //       }
+    //       if (index == 2) {
+    //         tms = 120;
+    //       }
+    //       write(
+    //         x,
+    //         center.x - window.innerWidth / 4 + index * tms,
+    //         center.y + SIZE * 3,
+    //         SIZE * 2,
+    //         (c.fillStyle = 'white'),
+    //         true
+    //       );
+    //     } else {
+    //       write(
+    //         x,
+    //         center.x - window.innerHeight / 4 + index * 180,
+    //         center.y + SIZE * 2,
+    //         SIZE * 2,
+    //         (c.fillStyle = 'white'),
+    //         true
+    //       );
+    //     }
+    //   }
+    // });
   }
   setTimeout(() => {
     c.fillStyle = '#0000';
