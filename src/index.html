@@ -14,7 +14,9 @@
   <link rel="stylesheet" type="text/css" href="index.css" />
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="📃 Rock, Paper, Scissors Battledsfffffffff" />
+  <meta
+    name="twitter:title"
+    content="📃 Rock, Paper, Scissors Battledsfffffffff" />
   <meta
     name="twitter:description"
     content="Watch simulations of emoji Rock, Paper, Scissors battle it out." />
@@ -60,46 +62,39 @@
     color="#5bbad5" />
   <meta name="msapplication-TileColor" content="#da532c" />
   <meta name="theme-color" content="#ffffff" />
-
-  <!-- CSS -->
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      overflow: hidden;
-    }
-    #a {
-      position: relative;
-      display: block;
-    }
-    /* .game-click-play {background-color: black;}
-  .title-game-click-play {color: white;} */
-  </style>
 </head>
 <body class="game-background-image">
-  <div id="wrapper">
-    <!-- <img src="assets/game-background.jpg" alt=""> -->
-    <div id="header">
-      <h1>RPS Scoreboard</h1>
-      <div id="wincount"></div>
-    </div>
-    <div id="temp_div">
-      <canvas id="a" class="canvas-width"></canvas>
-    </div>
+  <div id="bg-wrapper">
+    <div id="wrapper">
+      <!-- <img src="assets/game-background.jpg" alt=""> -->
+      <div id="header">
+        <h1></h1>
+        <div id="wincount"></div>
+      </div>
+      <div id="temp_div">
+        <canvas id="a" class="canvas-width"></canvas>
+        <div id="win-screen" class="canvas-width">
+          <img id="win-paper" src="/images/win-paper.png" style="width: 100%" />
+          <img id="win-rock" src="/images/win-rock.png" style="width: 100%" />
+          <img
+            id="win-scissors"
+            src="/images/win-scissors.png"
+            style="width: 100%" />
+        </div>
+      </div>
 
-    <script type="text/javascript" src="script.js"></script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-2833478-13"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-2833478-13');
-    </script>
+      <script type="text/javascript" src="script.js"></script>
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-2833478-13"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-2833478-13');
+      </script>
+    </div>
   </div>
 </body>

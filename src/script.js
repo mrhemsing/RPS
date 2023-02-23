@@ -1,4 +1,29 @@
 //let a=document.createElement("canvas");
+
+const emojiNames = {
+  '🪨': 'rock',
+  '📄': 'paper',
+  '✂️': 'scissors'
+};
+const showWinScreen = visible => {
+  if (visible) {
+    document.querySelector('canvas').style.display = 'none';
+    document.querySelector('#win-screen').style.display = 'block';
+  } else {
+    document.querySelector('canvas').style.display = 'block';
+    document.querySelector('#win-screen').style.display = 'none';
+  }
+};
+const displayWinner = p => {
+  showWinScreen(true);
+  document
+    .querySelectorAll('#win-screen img')
+    .forEach(img => (img.style.display = 'none'));
+
+  const winnerName = emojiNames[p];
+  document.querySelector(`#win-${winnerName}`).style.display = 'block';
+};
+
 let c = a.getContext('2d'), // no more $type conditional
   w = window,
   d = document,
@@ -12,10 +37,10 @@ let c = a.getContext('2d'), // no more $type conditional
     }
   ],
   FPS = 30, //50fps
-  SIZE = 0,
+  SIZE = 10,
   PIECES_COUNT = 3 * 5 * 7 * 10,
   SPEED = 3,
-  TOUCH_DISTANCE = 5,
+  TOUCH_DISTANCE = 9,
   gameOn = false,
   targetMap = {},
   center = {},
@@ -168,6 +193,8 @@ const start = () => {
   }, 3000);
 
   startButton.addEventListener('click', () => {
+    document.querySelector('canvas').style.display = 'block';
+    document.querySelector('#win-screen').style.display = 'none';
     startButton.innerHTML = 'Starting...';
     gameStartTimeout = setTimeout(() => {
       gameOn = true;
@@ -177,10 +204,7 @@ const start = () => {
   });
 };
 let pieceMap = {};
-let drawScore = (o, y) => {
-  c.fillStyle = 'white';
-  c.fillText(o + ' ' + (pieceMap[o] ? pieceMap[o].length : 0), SIZE, y);
-};
+
 let isTarget = (p1, p2) =>
   p2.o && targetMap[p1.o] && targetMap[p1.o].includes(p2.o);
 let t = Date.now(),
@@ -265,7 +289,8 @@ let update = () => {
 
   //check end condition
   if (isEndGame()) {
-    gameRestartTimeout = setTimeout(start, 5000);
+    gameRestartTimeout = setTimeout(start, 2000);
+    setTimeout(() => startButton.click(), 2002);
     gameOn = false;
   }
 };
@@ -290,14 +315,15 @@ let isDead = o => !pieceMap[o] || pieceMap[o].length === 0;
 let didWin = p => {
   if (emojis.filter(o => o !== p && isDead(o)).length === emojis.length - 1) {
     clear();
-    write(
+    /* write(
       p + ' WINS',
       center.x,
       center.y,
       SIZE * 3,
       (c.fillStyle = 'white'),
       true
-    );
+    );*/
+    displayWinner(p);
     rounds += 1;
     if (Object.keys(victories_dict).includes(p)) {
       victories_dict[p] += 1;
@@ -312,11 +338,12 @@ let didWin = p => {
 };
 const updateWinCountInHeader = (dict = {}) => {
   const el = document.getElementById('wincount');
-  let text = `🪨: ${dict['🪨'] || 0} 📄:${dict['📄'] || 0} ✂️: ${
-    dict['✂️'] || 0
-  }`;
+  let text = `<span>${dict['🪨'] || 0}</span><span>${
+    dict['📄'] || 0
+  }</span><span>${dict['✂️'] || 0}</span>`;
   el.innerHTML = text;
 };
+
 updateWinCountInHeader();
 onload = () => init();
 
