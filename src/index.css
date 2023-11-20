@@ -72,18 +72,21 @@ canvas {
   border-radius: 20px;
   border: white;
   color: white;
-  margin-left: -4%;
+  text-align: center;
+
   background: #0079ca;
-  width: 130px;
+  width: 164px;
   height: 40px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 20px;
-  position: absolute;
+  margin-top: 46px;
 }
 #startButton:hover {
   color: #2e2e92;
   background: white;
+}
+#startButton span {
+  padding-right: 0;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
@@ -171,7 +174,16 @@ canvas {
 }
 #round-display {
   position: absolute;
-  color: white;
+  color: #000;
+  left: 45%;
+  top: 48.3%;
+  -webkit-transform: rotate(6.5deg);
+  -moz-transform: rotate(6.5deg);
+  -o-transform: rotate(6.5deg);
+  -ms-transform: rotate(6.5deg);
+  transform: rotate(6.5deg);
+  font-weight: bold;
+  font-size: 20px;
 }
 canvas {
   display: none;

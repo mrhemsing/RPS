@@ -10,7 +10,7 @@ const hideAll = () => {
 };
 const showStartButton = visibility => {
   document.querySelector('#startButton').style.display = visibility
-    ? 'block'
+    ? 'inline-block'
     : 'none';
 };
 const showCanvas = () => {
@@ -41,7 +41,6 @@ const displayWinner = p => {
 
 let c = a.getContext('2d'), // no more $type conditional
   w = window,
-  d = document,
   M = Math,
   r = M.random,
   ruleSets = [
@@ -51,22 +50,21 @@ let c = a.getContext('2d'), // no more $type conditional
       rules: '✂️ cuts 📄 covers 🪨 crushes ✂️'
     }
   ],
-  FPS = 30, //50fps
-  SIZE = 10,
-  PIECES_COUNT = 3 * 5 * 7 * 10,
-  SPEED = 3,
-  TOUCH_DISTANCE = 9,
+  FPS = 50, //50fps
+  SIZE = 0,
+  SPEED = 5,
+  TOUCH_DISTANCE = 30,
   gameOn = false,
   targetMap = {},
   center = {},
   emojis = [],
   killFeed = [],
-  pieces = new Array(90).fill().map(() => ({ o: '', x: 0, y: 0 })),
+  pieces = new Array(60).fill().map(() => ({ o: '', x: 0, y: 0 })),
   myInterval = null,
   gameRestartTimeout = null,
   gameStartTimeout = null,
   selected = ruleSets[0];
-startButton = document.querySelector('#startButton');
+const startButton = document.querySelector('#startButton');
 startButton.addEventListener('click', () => {
   showWinScreen(false);
   showRoundScreen(false);
@@ -111,7 +109,7 @@ const start = () => {
 
   initEmojis();
   let o;
-  for (i = 0; i < 90; i++) {
+  for (let i = 0; i < 60; i++) {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
     o.x = r() * innerWidth;
@@ -122,96 +120,6 @@ const start = () => {
   if (gameStartTimeout) clearTimeout(gameStartTimeout);
   resize();
   gameOn = false;
-
-  if (rounds == 1) {
-    tempY = center.y - SIZE * 2;
-    write(selected.name, center.x, tempY + SIZE * 1.5, SIZE * 1, true);
-  } else {
-    // let text = '';
-    // let count = '';
-    // emojis.forEach(emoji => {
-    //   if (victories_dict[emoji]) {
-    //     text += emoji;
-    //     count += victories_dict[emoji];
-    //   } else {
-    //     text += emoji;
-    //     count += 0;
-    //   }
-    //   text += '\n';
-    //   count += '\n';
-    // });
-    // clear();
-    // text.split('\n').forEach((sc, index) => {
-    //   if (window.innerWidth <= 450) {
-    //     var tms = 1;
-    //     if (index == 0) {
-    //       tms = 130;
-    //     }
-    //     if (index == 1) {
-    //       tms = 120;
-    //     }
-    //     if (index == 2) {
-    //       tms = 120;
-    //     }
-    //     write(
-    //       sc,
-    //       center.x - window.innerWidth / 4 + index * tms,
-    //       center.y,
-    //       SIZE * 2,
-    //       (c.fillStyle = 'white'),
-    //       true
-    //     );
-    //   } else {
-    //     write(
-    //       sc,
-    //       center.x - window.innerHeight / 4 + index * 180,
-    //       center.y - SIZE * 2,
-    //       SIZE * 2,
-    //       (c.fillStyle = 'white'),
-    //       true
-    //     );
-    //   }
-    // });
-    // count.split('\n').forEach((x, index) => {
-    //   if (index <= 2) {
-    //     if (window.innerWidth <= 450) {
-    //       var tms = 1;
-    //       if (index == 0) {
-    //         tms = 130;
-    //       }
-    //       if (index == 1) {
-    //         tms = 120;
-    //       }
-    //       if (index == 2) {
-    //         tms = 120;
-    //       }
-    //       write(
-    //         x,
-    //         center.x - window.innerWidth / 4 + index * tms,
-    //         center.y + SIZE * 3,
-    //         SIZE * 2,
-    //         (c.fillStyle = 'white'),
-    //         true
-    //       );
-    //     } else {
-    //       write(
-    //         x,
-    //         center.x - window.innerHeight / 4 + index * 180,
-    //         center.y + SIZE * 2,
-    //         SIZE * 2,
-    //         (c.fillStyle = 'white'),
-    //         true
-    //       );
-    //     }
-    //   }
-    // });
-  }
-  setTimeout(() => {
-    c.fillStyle = '#0000';
-    clear();
-
-    //temp_div.appendChild(startButton);
-  }, 3000);
 };
 let pieceMap = {};
 
@@ -239,7 +147,7 @@ let update = () => {
     if (!p.o) return;
     //render
     c.fillStyle = 'white';
-    c.font = '30px serif';
+    c.font = '65px serif';
     c.fillText(
       p.o,
       p.x - SIZE / 2,
@@ -273,17 +181,17 @@ let update = () => {
           var audio = new Audio('./assets/scissors_sound.mpeg');
           audio.play();
         }
-        //c.fillText(selected.collision || '💥', p.x - SIZE / 2, p.y + SIZE / 2);
+        // c.fillText(selected.collision || '💥', p.x - SIZE / 2, p.y + SIZE / 2);
       }
     } else {
-      //if no targets, run away from their weakness! ...at 1/3rd the speed
+      //if no targets, run away from their weakness! ...at 1/2rd the speed
       weakness = pieces.filter(p2 => !isTarget(p, p2));
       if (weakness.length > 0) {
         weakness.sort((a, b) => dist(p, a) - dist(p, b));
         closest = weakness[0];
         pangle = revertAngle(angle(p, closest));
-        p.x += (SPEED / 3) * M.cos(pangle);
-        p.y += (SPEED / 3) * M.sin(pangle);
+        p.x += (SPEED / 2) * M.cos(pangle);
+        p.y += (SPEED / 2) * M.sin(pangle);
       }
     }
   });
@@ -332,11 +240,7 @@ let didWin = p => {
 
     displayWinner(p);
     rounds += 1;
-    if (Object.keys(victories_dict).includes(p)) {
-      victories_dict[p] += 1;
-    } else {
-      victories_dict[p] = 1;
-    }
+    victories_dict[p] = (victories_dict[p] || 0) + 1;
 
     return true;
   }
@@ -372,12 +276,7 @@ let clear = () => {
   c.rect(0, 0, innerWidth, innerHeight);
   c.fill();
 };
-let write = (str, x, y, fontSize, centered) => {
-  if (!(y < innerHeight && y > 0 && x > 0 && x < innerWidth)) return;
-  c.font = fontSize + 'px serif';
-  if (centered) x -= c.measureText(str).width / 2;
-  c.fillText(str, x, y);
-};
+
 let dist = (p1, p2) => {
   let a = p1.x - p2.x,
     b = p1.y - p2.y;
