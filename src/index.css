@@ -28,7 +28,7 @@ html {
   width: 800px;
   margin: 0 auto;
   font-family: arial !important;
-  padding-top: 155px;
+  padding-top: 193px;
   position: relative;
 }
 #wrapper span {
@@ -92,11 +92,17 @@ canvas {
   height: 40px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 46px;
+  margin-top: 64px;
   font-weight: 600;
+  width: fit-content;
+  transition: 0.2s cubic-bezier(0.77,0,0.18,1) all;
+
 }
 #startButton:hover {
   background: linear-gradient(90deg, #8E2DE2 0%, #4A00E0 100%);
+  transform: scale(1.1);
+  transition: 0.2s cubic-bezier(0.77,0,0.18,1) all;
+  box-shadow: 0px 7px 15px 0px rgba(142, 45, 226, 0.65);
 
 }
 #startButton span {
@@ -155,8 +161,6 @@ canvas {
     border: white;
     color: white;
     margin-left: -7% !important;
-    background: #0079ca;
-    width: 130px;
     height: 40px;
     font-size: 16px;
     text-align: center;
@@ -205,6 +209,30 @@ canvas {
 }
 
 
+@keyframes fadeIn {
+  0% {
+    transform: translateY(24px); 
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }  
+}
+
+@keyframes goIn { 
+  0% { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
 @media(max-width:1200px) {
 
 
@@ -217,6 +245,11 @@ canvas {
 
   h1 { 
     margin: 0px;
+  }
+
+
+  #round-display {
+    display: none;
   }
 
   #bg-wrapper { 
@@ -239,11 +272,18 @@ canvas {
   }
   
 
+
   #intro-screen, #win-screen, #round-screen, #a { 
     width:100%;
     border: 16px solid transparent;
-    border-image: url('./images/border.png') 30 / 19px round;
-    
+    border-image: url('./images/border.png') 20 / 16px;
+    height: 100%;
+    overflow: hidden; 
+/*     @media(min-width:500px) { 
+      border: 32px solid transparent;
+      border-image: url('./images/border.png') 16 / 32px;
+
+    } */
   }
   #start-button { 
     position: static;
@@ -354,7 +394,7 @@ canvas {
       font-size:14px;
       z-index: 1;
       margin-bottom: 22px;
-      @media(min-width:400px) { 
+      @media(min-width:500px) { 
         padding: 0 32px;
         font-size:16px; 
       }
@@ -392,8 +432,8 @@ canvas {
 
   }
 
-  .scoreboard-blur { 
-    background:#244EA7;
+.scoreboard-blur { 
+background:#244EA7;
 filter: blur(11.5px);
 height: 50%; 
 width: 80%;
@@ -407,27 +447,43 @@ z-index: 0;
   .scoreboard::before, .scoreboard::after {
     content: '';
     display: block;
-    width: 2px;
+    width: 4px;
     height: 20px;
     border-right: 2px solid black;
     border-left: 2px solid black;  
-    background: #CA898F;
+    background:  var(--interface-purple);
     position: absolute;
     top:calc(100% + 4px);
     z-index: 1; 
   }
 
   .scoreboard::before { 
-    left: 12px;
+    left: 11px;
     z-index: 0;
   }
 
   .scoreboard::after {
-     right: 12px;
+     right: 11px;
      z-index: 0;
   }
 
-
+  .scoreboard-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background: var(--interface-pink);
+    position: absolute;
+    top:calc(100% + 10px);
+    z-index: 1; 
+  }
+  
+  .scorebord-dot-left {
+    left: 10px;
+  } 
+  .scoreboard-dot-right {
+    right: 10px;
+  }
   
 
   .count-icon { 
@@ -447,8 +503,23 @@ z-index: 0;
     width:32px;
   }
 
+.score-animation { 
+   animation: fadeIn 1s cubic-bezier(0.77,0,0.18,1);
+  }
+
+#win-paper, #win-rock, #win-scissors {
+  animation: goIn 1s cubic-bezier(0.77,0,0.18,1); 
 }
 
+
+.new-round-image-desktop {
+   display: none;
+}
+
+}
+
+
+/* remove elements that doesn't belong in the desktop view. */
 @media(min-width:1200px) { 
   .scoreboard {
      display: none;
@@ -457,6 +528,9 @@ z-index: 0;
      display: none;
   }
 
+  .new-round-image-mobile {
+     display: none;
+  }
 
   #wincount { 
     left: 522px !important;
@@ -470,4 +544,8 @@ z-index: 0;
     display: flex;
   }
 
+}
+
+#intro-screen { 
+  display: flex;
 }

@@ -15,19 +15,19 @@ const showStartButton = (visibility) => {
 };
 const showCanvas = () => {
   hideAll();
-  document.querySelector('canvas').style.display = 'block';
+  document.querySelector('canvas').style.display = 'flex';
 };
 const showWinScreen = () => {
   hideAll();
-  document.querySelector('#win-screen').style.display = 'block';
+  document.querySelector('#win-screen').style.display = 'flex';
 };
 const showRoundScreen = () => {
   hideAll();
-  document.querySelector('#round-screen').style.display = 'block';
+  document.querySelector('#round-screen').style.display = 'flex';
 };
 const showIntroScreen = () => {
   hideAll();
-  document.querySelector('#intro-screen').style.display = 'block';
+  document.querySelector('#intro-screen').style.display = 'flex';
 };
 const displayWinner = (p) => {
   showWinScreen(true);
@@ -78,6 +78,7 @@ startButton.addEventListener('click', () => {
 });
 rounds = 1;
 victories_dict = {};
+winner = null;
 
 let init = () => {
   w.addEventListener('resize', resize);
@@ -99,6 +100,14 @@ const initEmojis = () => {
   emojis = Object.keys(targetMap);
 };
 const start = () => {
+  const rock = document.querySelector('#rock');
+  rock.classList.remove('score-animation');
+  const paper = document.querySelector('#paper');
+  paper.classList.remove('score-animation');
+  const scissors = document.querySelector('#scissor');
+  scissors.classList.remove('score-animation');
+
+
   if (rounds > 1) {
     showRoundScreen(true);
     showStartButton(true);
@@ -112,8 +121,8 @@ const start = () => {
   for (let i = 0; i < 60; i++) {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
-    o.x = r() * innerWidth;
-    o.y = r() * innerHeight;
+    o.x = r() * window.innerWidth;
+    o.y = r() * window.innerHeight;
   }
   killFeed = [];
   if (gameRestartTimeout) clearTimeout(gameRestartTimeout);
@@ -240,6 +249,7 @@ let didWin = (p) => {
 
     displayWinner(p);
     rounds += 1;
+    winner = p;
     victories_dict[p] = (victories_dict[p] || 0) + 1;
 
     return true;
@@ -248,17 +258,17 @@ let didWin = (p) => {
   return false;
 };
 const updateWinCountInHeader = (dict = {}) => {
-  console.log('Win count called', dict);
-  const className = 'wincount-item';
-
   const rock = document.querySelector('#rock');
   rock.textContent = dict['🪨'] || 0;
+  winner === '🪨' && rock.classList.add('score-animation');
 
   const paper = document.querySelector('#paper');
   paper.textContent = dict['📄'] || 0;
+  winner === '📄' && paper.classList.add('score-animation');
 
   const scissors = document.querySelector('#scissor');
   scissors.textContent = dict['✂️'] || 0;
+  winner === '✂️' && scissors.classList.add('score-animation');
 };
 
 updateWinCountInHeader();
@@ -270,10 +280,9 @@ onload = () => init();
 const resize = () => {
   //adjust sizes of things whenever window is resized
 
-
-
-  a.width = innerWidth;
-  a.height = window.innerWidth < 1200 ? 600 : innerHeight;
+  a.width = window.innerWidth;
+  a.height =
+    window.innerHeight > 1200 ? window.innerHeight : window.innerHeight - 200;
   SIZE = M.min(a.width, a.height) / 15;
   c.font = SIZE + 'px serif';
   center.x = innerWidth / 2;
@@ -292,3 +301,4 @@ let dist = (p1, p2) => {
 };
 let angle = (p1, p2) => M.atan2(p2.y - p1.y, p2.x - p1.x);
 let revertAngle = (radians) => (radians + M.PI) % (2 * Math.PI);
+
