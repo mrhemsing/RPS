@@ -52,7 +52,7 @@ let c = a.getContext('2d'), // no more $type conditional
   ],
   FPS = 50, //50fps
   SIZE = 0,
-  SPEED = 5,
+  SPEED = window.innerWidth > 1200 ? 5 : 2.5,
   TOUCH_DISTANCE = 30,
   gameOn = false,
   targetMap = {},
@@ -85,7 +85,6 @@ let init = () => {
   resize();
   ruleSets.map((r) => (r.rulesArr = r.rules.split(' ')));
   if (!myInterval) myInterval = setInterval(update, FPS);
-
   start();
 };
 const initEmojis = () => {
@@ -121,8 +120,8 @@ const start = () => {
   for (let i = 0; i < 60; i++) {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
-    o.x = r() * window.innerWidth;
-    o.y = r() * window.innerHeight;
+    o.x = r() * innerWidth;
+    o.y = r() * innerHeight;
   }
   killFeed = [];
   if (gameRestartTimeout) clearTimeout(gameRestartTimeout);
@@ -156,7 +155,7 @@ let update = () => {
     if (!p.o) return;
     //render
     c.fillStyle = 'white';
-    c.font = '65px serif';
+    c.font = window.innerWidth > 1200 ? '65px serif' : "32px serif";
     c.fillText(
       p.o,
       p.x - SIZE / 2,
@@ -279,17 +278,16 @@ onload = () => init();
 //---------------------------------------------------
 const resize = () => {
   //adjust sizes of things whenever window is resized
-
-  a.width = window.innerWidth;
-  a.height =
-    window.innerHeight > 1200 ? window.innerHeight : window.innerHeight - 200;
+  console.log('hey')
+  a.width =  innerWidth;
+  a.height = innerHeight > 1200 ? innerHeight : innerHeight - 200;
   SIZE = M.min(a.width, a.height) / 15;
   c.font = SIZE + 'px serif';
   center.x = innerWidth / 2;
   center.y = innerHeight / 2;
 };
 let clear = () => {
-  c.fillStyle = '#000';
+  c.fillStyle = '#1C263F';
   c.rect(0, 0, innerWidth, innerHeight);
   c.fill();
 };
