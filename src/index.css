@@ -89,7 +89,7 @@ canvas {
   background: linear-gradient(90deg, #8E2DE2 0%, #4A00E0 100%);
   box-shadow: 0px 7px 15px 0px rgba(142, 45, 226, 0.45);
   padding: 0 32px;
-  height: 40px;
+  height: 56px;
   font-size: 16px;
   cursor: pointer;
   margin-top: 64px;
@@ -211,11 +211,11 @@ canvas {
 
 @keyframes fadeIn {
   0% {
-    transform: translateY(24px); 
+    transform: translateY(24px) scale(1.2); 
     opacity: 0;
   }
   100% {
-    transform: translateY(0px);
+    transform: translateY(0px) scale(1);
     opacity: 1;
   }  
 }
@@ -276,14 +276,14 @@ canvas {
   #intro-screen, #win-screen, #round-screen, #a { 
     width:100%;
     border: 16px solid transparent;
-    border-image: url('./images/border.png') 20 / 16px;
+    border-image: url('./images/border.png') 30 / 16px;
     height: 100%;
     overflow: hidden; 
-/*     @media(min-width:500px) { 
+    @media(min-width:500px) { 
       border: 32px solid transparent;
-      border-image: url('./images/border.png') 16 / 32px;
+      border-image: url('./images/border.png') 32 / 32px;
 
-    } */
+    }
   }
   #start-button { 
     position: static;
@@ -504,7 +504,7 @@ z-index: 0;
   }
 
 .score-animation { 
-   animation: fadeIn 1s cubic-bezier(0.77,0,0.18,1);
+   animation: fadeIn 1s cubic-bezier(0.68,-0.55,0.27,1.55);
   }
 
 #win-paper, #win-rock, #win-scissors {
