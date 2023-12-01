@@ -74,11 +74,13 @@ html {
   font-size: 24px;
   /* align-items: center; */
 }
+
 canvas {
   font-size: 50px;
   width: 620px;
   height: 309px;
 }
+
 #startButton {
   border-radius: 20px;
   border: white;
@@ -135,10 +137,10 @@ canvas {
     vertical-align: text-top;
     font-size: 100px !important;
   }
-  .canvas-width {
+/*   .canvas-width {
     width: 100% !important;
     height: auto !important;
-  }
+  } */
   #startButton {
     /* border-radius: 20px;
     border: white;
@@ -261,7 +263,7 @@ canvas {
 
   #wrapper {
      width:100%; 
-     padding-top: 64px;
+     padding-top: 32px;
      max-width: 672px;
      width:95%; 
   }
@@ -515,6 +517,8 @@ z-index: 0;
 .new-round-image-desktop {
    display: none;
 }
+
+
 
 }
 

@@ -24,7 +24,7 @@
   <meta name="twitter:creator" content="@lewdev" />
   <meta
     name="twitter:image"
-    content="https://lewdev.github.io/apps/rock-paper-scissors-battle/assets/banner-1200x630.png" />
+    content="https://lewdev.github.io/apps/rock-paper-scissors-battle/assets/banner-1200x630.webp" />
 
   <!-- Open Graph general (Facebook, Pinterest)-->
   <meta property="og:title" content="📃 Rock, Paper, Scissors Battle" />
@@ -38,23 +38,23 @@
   <meta property="og:type" content="website" />
   <meta
     property="og:image"
-    content="https://lewdev.github.io/apps/rock-paper-scissors-battle/assets/banner-1200x630.png" />
+    content="https://lewdev.github.io/apps/rock-paper-scissors-battle/assets/banner-1200x630.webp" />
 
   <!-- https://realfavicongenerator.net -->
   <link
     rel="apple-touch-icon"
     sizes="180x180"
-    href="./assets/favicon/apple-touch-icon.png" />
+    href="./assets/favicon/apple-touch-icon.webp" />
   <link
     rel="icon"
     type="image/png"
     sizes="32x32"
-    href="./assets/favicon/favicon-32x32.png" />
+    href="./assets/favicon/favicon-32x32.webp" />
   <link
     rel="icon"
     type="image/png"
     sizes="16x16"
-    href="./assets/favicon/favicon-16x16.png" />
+    href="./assets/favicon/favicon-16x16.webp" />
   <link rel="manifest" href="./assets/favicon/site.webmanifest" />
   <link
     rel="mask-icon"
@@ -137,27 +137,29 @@
       </div>
         </div>
         </div>
+        <div id="play-area-wrap">
 
           <canvas id="a" class="canvas-width"></canvas>
           <div id="win-screen" class="canvas-width">
-            <img id="win-paper" src="/images/win-paper.png" style="width: 100%" />
-          <img id="win-rock" src="/images/win-rock.png" style="width: 100%" />
-          <img
-          id="win-scissors"
-          src="/images/win-scissors.png"
-          style="width: 100%" />
-        </div>
-        <div id="round-screen" class="canvas-width">
-          <div id="round-display">
-            Round <span class="round-number">1</span>
+            <img id="win-paper" src="/images/win-paper.webp" style="width: 100%" />
+            <img id="win-rock" src="/images/win-rock.webp" style="width: 100%" />
+            <img
+            id="win-scissors"
+            src="/images/win-scissors.webp"
+            style="width: 100%" />
           </div>
-          <img id="win-paper" class="new-round-image-mobile" style="width: 100%;" src="/images/round-mobile.png" alt="">
-          <img id="win-paper" class="new-round-image-desktop" src="/images/round.png" style="width: 100%" />
+          <div id="round-screen" class="canvas-width">
+            <div id="round-display">
+              Round <span class="round-number">1</span>
+            </div>
+            <img id="win-paper" class="new-round-image-mobile" style="width: 100%;" src="/images/round-mobile.webp" alt="">
+            <img id="win-paper" class="new-round-image-desktop" src="/images/round.webp" style="width: 100%" />
+          </div>
+          <div id="intro-screen" class="canvas-width">
+            <img id="win-paper" src="/images/intro.webp" style="width: 100%" />
+          </div>
         </div>
-        <div id="intro-screen" class="canvas-width">
-          <img id="win-paper" src="/images/intro.png" style="width: 100%" />
-        </div>
-
+        
         <button id="startButton" class="startButton">
           Start Round <span class="round-number">1</span>
         </button>

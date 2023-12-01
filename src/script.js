@@ -15,7 +15,7 @@ const showStartButton = (visibility) => {
 };
 const showCanvas = () => {
   hideAll();
-  document.querySelector('canvas').style.display = 'flex';
+  document.querySelector('canvas').style.display = 'block';
 };
 const showWinScreen = () => {
   hideAll();
@@ -52,7 +52,7 @@ let c = a.getContext('2d'), // no more $type conditional
   ],
   FPS = 50, //50fps
   SIZE = 0,
-  SPEED = window.innerWidth > 1200 ? 5 : 2.5,
+  SPEED = window.innerWidth > 1200 ? 5 : 2,
   TOUCH_DISTANCE = 30,
   gameOn = false,
   targetMap = {},
@@ -64,6 +64,7 @@ let c = a.getContext('2d'), // no more $type conditional
   gameRestartTimeout = null,
   gameStartTimeout = null,
   selected = ruleSets[0];
+
 const startButton = document.querySelector('#startButton');
 startButton.addEventListener('click', () => {
   showWinScreen(false);
@@ -106,7 +107,6 @@ const start = () => {
   const scissors = document.querySelector('#scissor');
   scissors.classList.remove('score-animation');
 
-
   if (rounds > 1) {
     showRoundScreen(true);
     showStartButton(true);
@@ -121,7 +121,7 @@ const start = () => {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
     o.x = r() * innerWidth;
-    o.y = r() * innerHeight;
+    o.y = r() * window.innerHeight - 62;
   }
   killFeed = [];
   if (gameRestartTimeout) clearTimeout(gameRestartTimeout);
@@ -155,7 +155,7 @@ let update = () => {
     if (!p.o) return;
     //render
     c.fillStyle = 'white';
-    c.font = window.innerWidth > 1200 ? '65px serif' : "32px serif";
+    c.font = window.innerWidth > 1200 ? '65px serif' : '24px serif';
     c.fillText(
       p.o,
       p.x - SIZE / 2,
@@ -278,9 +278,9 @@ onload = () => init();
 //---------------------------------------------------
 const resize = () => {
   //adjust sizes of things whenever window is resized
-  console.log('hey')
-  a.width =  innerWidth;
-  a.height = innerHeight > 1200 ? innerHeight : innerHeight - 200;
+
+  a.width = innerWidth;
+  a.height = window.innerHeight - 124;
   SIZE = M.min(a.width, a.height) / 15;
   c.font = SIZE + 'px serif';
   center.x = innerWidth / 2;
@@ -299,4 +299,3 @@ let dist = (p1, p2) => {
 };
 let angle = (p1, p2) => M.atan2(p2.y - p1.y, p2.x - p1.x);
 let revertAngle = (radians) => (radians + M.PI) % (2 * Math.PI);
-
