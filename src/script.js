@@ -1,14 +1,14 @@
 const emojiNames = {
   '🪨': 'rock',
   '📄': 'paper',
-  '✂️': 'scissors'
+  '✂️': 'scissors',
 };
 const hideAll = () => {
   document
     .querySelectorAll('canvas, #win-screen, #round-screen, #intro-screen')
-    .forEach(node => (node.style.display = 'none'));
+    .forEach((node) => (node.style.display = 'none'));
 };
-const showStartButton = visibility => {
+const showStartButton = (visibility) => {
   document.querySelector('#startButton').style.display = visibility
     ? 'inline-block'
     : 'none';
@@ -19,21 +19,21 @@ const showCanvas = () => {
 };
 const showWinScreen = () => {
   hideAll();
-  document.querySelector('#win-screen').style.display = 'block';
+  document.querySelector('#win-screen').style.display = 'flex';
 };
 const showRoundScreen = () => {
   hideAll();
-  document.querySelector('#round-screen').style.display = 'block';
+  document.querySelector('#round-screen').style.display = 'flex';
 };
 const showIntroScreen = () => {
   hideAll();
-  document.querySelector('#intro-screen').style.display = 'block';
+  document.querySelector('#intro-screen').style.display = 'flex';
 };
-const displayWinner = p => {
+const displayWinner = (p) => {
   showWinScreen(true);
   document
     .querySelectorAll('#win-screen img')
-    .forEach(img => (img.style.display = 'none'));
+    .forEach((img) => (img.style.display = 'none'));
 
   const winnerName = emojiNames[p];
   document.querySelector(`#win-${winnerName}`).style.display = 'block';
@@ -47,12 +47,12 @@ let c = a.getContext('2d'), // no more $type conditional
     {
       id: 1,
       name: '🪨📄✂️',
-      rules: '✂️ cuts 📄 covers 🪨 crushes ✂️'
-    }
+      rules: '✂️ cuts 📄 covers 🪨 crushes ✂️',
+    },
   ],
   FPS = 50, //50fps
   SIZE = 0,
-  SPEED = 5,
+  SPEED = window.innerWidth > 1200 ? 5 : 2,
   TOUCH_DISTANCE = 30,
   gameOn = false,
   targetMap = {},
@@ -64,6 +64,7 @@ let c = a.getContext('2d'), // no more $type conditional
   gameRestartTimeout = null,
   gameStartTimeout = null,
   selected = ruleSets[0];
+
 const startButton = document.querySelector('#startButton');
 startButton.addEventListener('click', () => {
   showWinScreen(false);
@@ -78,13 +79,13 @@ startButton.addEventListener('click', () => {
 });
 rounds = 1;
 victories_dict = {};
+winner = null;
 
 let init = () => {
   w.addEventListener('resize', resize);
   resize();
-  ruleSets.map(r => (r.rulesArr = r.rules.split(' ')));
+  ruleSets.map((r) => (r.rulesArr = r.rules.split(' ')));
   if (!myInterval) myInterval = setInterval(update, FPS);
-
   start();
 };
 const initEmojis = () => {
@@ -99,13 +100,20 @@ const initEmojis = () => {
   emojis = Object.keys(targetMap);
 };
 const start = () => {
+  const rock = document.querySelector('#rock');
+  rock.classList.remove('score-animation');
+  const paper = document.querySelector('#paper');
+  paper.classList.remove('score-animation');
+  const scissors = document.querySelector('#scissor');
+  scissors.classList.remove('score-animation');
+
   if (rounds > 1) {
     showRoundScreen(true);
     showStartButton(true);
   } else showIntroScreen();
   document
     .querySelectorAll('.round-number')
-    .forEach(x => (x.innerHTML = rounds));
+    .forEach((x) => (x.innerHTML = rounds));
 
   initEmojis();
   let o;
@@ -113,7 +121,8 @@ const start = () => {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
     o.x = r() * innerWidth;
-    o.y = r() * innerHeight;
+    const VIEWPORT_MARGIN = 62 
+    o.y = r() * window.innerHeight - VIEWPORT_MARGIN;
   }
   killFeed = [];
   if (gameRestartTimeout) clearTimeout(gameRestartTimeout);
@@ -143,11 +152,11 @@ let update = () => {
   pieces.sort((a, b) => {
     a.y - b.y;
   });
-  pieces.map(p => {
+  pieces.map((p) => {
     if (!p.o) return;
     //render
     c.fillStyle = 'white';
-    c.font = '65px serif';
+    c.font = window.innerWidth > 1200 ? '65px serif' : '24px serif';
     c.fillText(
       p.o,
       p.x - SIZE / 2,
@@ -155,7 +164,7 @@ let update = () => {
     );
 
     //find closest target piece
-    targets = pieces.filter(p2 => isTarget(p, p2));
+    targets = pieces.filter((p2) => isTarget(p, p2));
     if (targets.length > 0) {
       targets.sort((a, b) => dist(p, a) - dist(p, b));
       closest = targets[0];
@@ -185,7 +194,7 @@ let update = () => {
       }
     } else {
       //if no targets, run away from their weakness! ...at 1/2rd the speed
-      weakness = pieces.filter(p2 => !isTarget(p, p2));
+      weakness = pieces.filter((p2) => !isTarget(p, p2));
       if (weakness.length > 0) {
         weakness.sort((a, b) => dist(p, a) - dist(p, b));
         closest = weakness[0];
@@ -199,7 +208,7 @@ let update = () => {
   //draw score
   tempY = 0;
   emojis.map((o, i) => {
-    pieceMap[o] = pieces.filter(p => p.o === o);
+    pieceMap[o] = pieces.filter((p) => p.o === o);
     tempY = SIZE + i * SIZE * 1.2;
     //drawScore(o, tempY);
   });
@@ -232,14 +241,15 @@ let getFeed = (a, b) => {
   return `${a} defeated ${b}`;
 };
 
-let isEndGame = () => emojis.filter(o => didWin(o)).length === 1;
-let isDead = o => !pieceMap[o] || pieceMap[o].length === 0;
-let didWin = p => {
-  if (emojis.filter(o => o !== p && isDead(o)).length === emojis.length - 1) {
+let isEndGame = () => emojis.filter((o) => didWin(o)).length === 1;
+let isDead = (o) => !pieceMap[o] || pieceMap[o].length === 0;
+let didWin = (p) => {
+  if (emojis.filter((o) => o !== p && isDead(o)).length === emojis.length - 1) {
     clear();
 
     displayWinner(p);
     rounds += 1;
+    winner = p;
     victories_dict[p] = (victories_dict[p] || 0) + 1;
 
     return true;
@@ -248,12 +258,17 @@ let didWin = p => {
   return false;
 };
 const updateWinCountInHeader = (dict = {}) => {
-  console.log('Win count called', dict);
-  const el = document.getElementById('wincount');
-  let text = `<span>${dict['🪨'] || 0}</span><span>${
-    dict['📄'] || 0
-  }</span><span>${dict['✂️'] || 0}</span>`;
-  el.innerHTML = text;
+  const rock = document.querySelector('#rock');
+  rock.textContent = dict['🪨'] || 0;
+  winner === '🪨' && rock.classList.add('score-animation');
+
+  const paper = document.querySelector('#paper');
+  paper.textContent = dict['📄'] || 0;
+  winner === '📄' && paper.classList.add('score-animation');
+
+  const scissors = document.querySelector('#scissor');
+  scissors.textContent = dict['✂️'] || 0;
+  winner === '✂️' && scissors.classList.add('score-animation');
 };
 
 updateWinCountInHeader();
@@ -264,15 +279,17 @@ onload = () => init();
 //---------------------------------------------------
 const resize = () => {
   //adjust sizes of things whenever window is resized
+
   a.width = innerWidth;
-  a.height = innerHeight;
+  const VIEWPORT_MARGIN = 124
+  a.height = window.innerHeight - 124;
   SIZE = M.min(a.width, a.height) / 15;
   c.font = SIZE + 'px serif';
   center.x = innerWidth / 2;
   center.y = innerHeight / 2;
 };
 let clear = () => {
-  c.fillStyle = '#000';
+  c.fillStyle = '#1C263F';
   c.rect(0, 0, innerWidth, innerHeight);
   c.fill();
 };
@@ -283,4 +300,4 @@ let dist = (p1, p2) => {
   return M.sqrt(a * a + b * b);
 };
 let angle = (p1, p2) => M.atan2(p2.y - p1.y, p2.x - p1.x);
-let revertAngle = radians => (radians + M.PI) % (2 * Math.PI);
+let revertAngle = (radians) => (radians + M.PI) % (2 * Math.PI);

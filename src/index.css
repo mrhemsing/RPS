@@ -1,3 +1,7 @@
+@import url('./variables.css');
+
+
+
 body,
 html {
   padding: 0;
@@ -17,7 +21,7 @@ html {
   width: 800px;
   margin: 0 auto;
   font-family: arial !important;
-  padding-top: 155px;
+  padding-top: 193px;
   position: relative;
 }
 #wrapper span {
@@ -41,10 +45,10 @@ html {
   right: 44px;
 }
 #temp_div {
+
   width: 620px;
   height: 309px;
   margin: 0 auto;
-
   top: 0;
   /* color: #fff !important;
   left: 30%;
@@ -63,27 +67,38 @@ html {
   font-size: 24px;
   /* align-items: center; */
 }
+
 canvas {
   font-size: 50px;
   width: 620px;
   height: 309px;
 }
+
 #startButton {
   border-radius: 20px;
   border: white;
   color: white;
   text-align: center;
-
-  background: #0079ca;
-  width: 164px;
-  height: 40px;
+  border-radius: 50px;
+  border: 1px solid #4A00E0;
+  background: linear-gradient(90deg, #8E2DE2 0%, #4A00E0 100%);
+  box-shadow: 0px 7px 15px 0px rgba(142, 45, 226, 0.45);
+  padding: 0 32px;
+  height: 56px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 46px;
+  margin-top: 64px;
+  font-weight: 600;
+  width: fit-content;
+  transition: 0.2s cubic-bezier(0.77,0,0.18,1) all;
+
 }
 #startButton:hover {
-  color: #2e2e92;
-  background: white;
+  background: linear-gradient(90deg, #8E2DE2 0%, #4A00E0 100%);
+  transform: scale(1.1);
+  transition: 0.2s cubic-bezier(0.77,0,0.18,1) all;
+  box-shadow: 0px 7px 15px 0px rgba(142, 45, 226, 0.65);
+
 }
 #startButton span {
   padding-right: 0;
@@ -115,10 +130,10 @@ canvas {
     vertical-align: text-top;
     font-size: 100px !important;
   }
-  .canvas-width {
+/*   .canvas-width {
     width: 100% !important;
     height: auto !important;
-  }
+  } */
   #startButton {
     /* border-radius: 20px;
     border: white;
@@ -141,8 +156,6 @@ canvas {
     border: white;
     color: white;
     margin-left: -7% !important;
-    background: #0079ca;
-    width: 130px;
     height: 40px;
     font-size: 16px;
     text-align: center;
@@ -164,6 +177,7 @@ canvas {
     border-radius: 8px;
   }
 }
+
 
 #win-screen {
   display: none;
@@ -187,4 +201,377 @@ canvas {
 }
 canvas {
   display: none;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    transform: translateY(24px) scale(1.2); 
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+  }  
+}
+
+@keyframes goIn { 
+  0% { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+@media(max-width:1200px) {
+
+
+
+
+  * { 
+    box-sizing: border-box;
+  }
+
+
+  h1 { 
+    margin: 0px;
+  }
+
+
+  #round-display {
+    display: none;
+  }
+
+  #bg-wrapper { 
+    background: none;
+    height: 100vh;
+    background: url('./images/landscape-mobile.webp');
+    background-size: cover;
+  }
+
+  #wrapper {
+     width:100%; 
+     padding-top: 32px;
+     max-width: 672px;
+     width:95%; 
+  }
+
+  #temp_div { 
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+
+
+  #intro-screen, #win-screen, #round-screen, #a { 
+    width:100%;
+    border: 16px solid transparent;
+    border-image: url('./images/border.png') 30 / 16px;
+    height: 100%;
+    overflow: hidden; 
+    @media(min-width:500px) { 
+      border: 32px solid transparent;
+      border-image: url('./images/border.png') 32 / 32px;
+
+    }
+  }
+  #start-button { 
+    position: static;
+  }
+
+  #a { 
+    width:100%; 
+    object-fit: cover;
+  }
+
+
+  #wincount { 
+    display: flex;
+    align-items: flex-end;
+    gap:8px;
+    padding: 0px !important;
+    margin: 0px !important;
+    position: static;
+  }
+
+
+  .button-wrap { 
+    display: flex;
+    justify-content: center;
+  }
+
+  #startButton { 
+    margin-top:24px !important;
+    text-align: center;
+    margin-left: 0px !important;
+  }
+
+  #wrapper span { 
+    padding-right: 0px;
+  }
+
+
+  #top { 
+    display: flex;
+    justify-content: space-between;
+    gap:16px;
+  }
+
+  .wincount-item { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 0px;
+    height:60px; 
+    width:40px;
+    border-radius: 15px;
+    border:2px solid #CA898F;
+    outline: 4px solid black;
+    background: var(--Gradient, linear-gradient(180deg, #1D3972 0%, #24478E 100%));
+    position: relative;
+    margin-top: -20px;
+    font-weight: 700;
+    position: relative;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 22px;
+    @media(min-width:550px) { 
+      width: 50px; 
+      height: 70px;
+      font-size: 32px;
+    }
+  }
+  .wincount-item::before, .wincount-item::after {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 20px;
+    border-right: 2px solid black;
+    border-left: 2px solid black;  
+    background: #CA898F;
+    position: absolute;
+    top:calc(100% + 4px);
+    z-index: 1; 
+  }
+
+
+  .wincount-item::before { 
+    left: 12px;
+    z-index: 0;
+  }
+
+  .wincount-item::after {
+     right: 12px;
+     z-index: 0;
+  }
+
+
+  .scoreboard {
+     background: var(--interface-dark-blue);
+     font-size: 16px;
+     color: white;
+     font-weight: 600;
+      height: 40px;
+      padding: 0 12px;
+      border:2px solid var(--interface-pink);
+      outline: 4px solid black;
+      border-radius: var(--radius-default);
+      display: flex;
+      align-items: center;
+      height: 70px;
+      position: relative;
+      font-size:14px;
+      z-index: 1;
+      margin-bottom: 22px;
+      @media(min-width:500px) { 
+        padding: 0 32px;
+        font-size:16px; 
+      }
+  }
+
+
+  .scoreboard-title {
+    font-size:16px;
+    @media(min-width:400px) { 
+
+      font-size:32px; 
+    }
+  }
+
+  .scoreboard-text {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap:8px;
+    display: flex;
+    align-items: center;
+    gap:8px;
+  }
+
+  .scoreboard-border {
+     border: 1px solid #BBBBBB;
+    border-radius: var(--radius-default);
+  }
+
+  .scoreboard-borders {
+    display: flex;
+    flex-direction: column;
+    gap:1px;
+    width: 100%;
+
+  }
+
+.scoreboard-blur { 
+background:#244EA7;
+filter: blur(11.5px);
+height: 50%; 
+width: 80%;
+position: absolute; 
+top: 50%; 
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 0;
+  }
+
+  .scoreboard::before, .scoreboard::after {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 20px;
+    border-right: 2px solid black;
+    border-left: 2px solid black;  
+    background:  var(--interface-purple);
+    position: absolute;
+    top:calc(100% + 4px);
+    z-index: 1; 
+  }
+
+  .scoreboard::before { 
+    left: 11px;
+    z-index: 0;
+  }
+
+  .scoreboard::after {
+     right: 11px;
+     z-index: 0;
+  }
+
+  .scoreboard-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background: var(--interface-pink);
+    position: absolute;
+    top:calc(100% + 10px);
+    z-index: 1; 
+  }
+  
+  .scorebord-dot-left {
+    left: 10px;
+  } 
+  .scoreboard-dot-right {
+    right: 10px;
+  }
+  
+
+  .count-icon { 
+    height:40px; 
+    width: 40px;
+    border:2px solid var(--interface-pink);
+    outline: 4px solid black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: calc(100% - 10px); 
+    background: var(--Gradient, linear-gradient(180deg, #1D3972 0%, #24478E 100%));
+  }
+  .count-icon svg { 
+    width:32px;
+  }
+
+.score-animation { 
+   animation: fadeIn 1s cubic-bezier(0.68,-0.55,0.27,1.55);
+  }
+
+#win-paper, #win-rock, #win-scissors {
+  animation: goIn 1s cubic-bezier(0.77,0,0.18,1); 
+}
+
+
+.new-round-image-desktop {
+   display: none;
+}
+
+
+
+}
+
+/* Move the button a bit further up so its not hidden on scroll */
+@media (orientation: landscape) and (max-width: 1200px) {
+  
+
+
+  #play-area-wrap, #intro-screen, #win-paper, #win-rock, #win-scissors { 
+      max-height: 50vh !important;
+  }
+
+  #startButton { 
+    margin-top: 8px !important;
+  }
+
+  img { 
+    object-fit: cover;
+  }
+  .scoreboard, .wincount-item {
+     height: 50px;
+  }
+  .wincount-item { 
+    font-size: 20px;
+  }
+  #rock, #paper, #scissor { 
+    margin-top: 4px;
+  }
+
+
+}
+
+
+
+/* remove elements that doesn't belong in the desktop view. */
+@media(min-width:1200px) { 
+  .scoreboard {
+     display: none;
+  }
+  .count-icon {
+     display: none;
+  }
+
+  .new-round-image-mobile {
+     display: none;
+  }
+
+  #wincount { 
+    left: 522px !important;
+    display: flex;
+    gap:65px;
+  }
+
+  .wincount-item { 
+    display: inline;
+    color: white;
+    display: flex;
+  }
+
+}
+
+#intro-screen { 
+  display: flex;
 }
