@@ -121,7 +121,8 @@ const start = () => {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
     o.x = r() * innerWidth;
-    o.y = r() * window.innerHeight - 62;
+    const VIEWPORT_MARGIN = 62 
+    o.y = r() * window.innerHeight - VIEWPORT_MARGIN;
   }
   killFeed = [];
   if (gameRestartTimeout) clearTimeout(gameRestartTimeout);
@@ -280,6 +281,7 @@ const resize = () => {
   //adjust sizes of things whenever window is resized
 
   a.width = innerWidth;
+  const VIEWPORT_MARGIN = 124
   a.height = window.innerHeight - 124;
   SIZE = M.min(a.width, a.height) / 15;
   c.font = SIZE + 'px serif';
