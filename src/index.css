@@ -249,7 +249,7 @@ canvas {
 
   #bg-wrapper { 
     background: none;
-    height: 100%;
+    height: 100vh;
     background: url('./images/landscape-mobile.webp');
     background-size: cover;
   }
@@ -513,6 +513,36 @@ z-index: 0;
 
 
 }
+
+/* Move the button a bit further up so its not hidden on scroll */
+@media (orientation: landscape) and (max-width: 1200px) {
+  
+
+
+  #play-area-wrap, #intro-screen, #win-paper, #win-rock, #win-scissors { 
+      max-height: 50vh !important;
+  }
+
+  #startButton { 
+    margin-top: 8px !important;
+  }
+
+  img { 
+    object-fit: cover;
+  }
+  .scoreboard, .wincount-item {
+     height: 50px;
+  }
+  .wincount-item { 
+    font-size: 20px;
+  }
+  #rock, #paper, #scissor { 
+    margin-top: 4px;
+  }
+
+
+}
+
 
 
 /* remove elements that doesn't belong in the desktop view. */
