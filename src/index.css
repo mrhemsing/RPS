@@ -2,13 +2,6 @@
 
 
 
-@font-face {
-  font-family: "Inception";
-  src: url('./assets/inception.woff2');
-  font-weight: 400;
-
-}
-
 body,
 html {
   padding: 0;
@@ -257,7 +250,7 @@ canvas {
   #bg-wrapper { 
     background: none;
     height: 100vh;
-    background: url('./images/landscape-mobile.png');
+    background: url('./images/landscape-mobile.webp');
     background-size: cover;
   }
 
