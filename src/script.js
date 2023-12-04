@@ -57,7 +57,7 @@ let c = a.getContext('2d'), // no more $type conditional
   ],
   FPS = 30, //50fps
   SIZE = 0,
-  SPEED = 1.5;
+  SPEED = 2;
   TOUCH_DISTANCE = 20,
   gameOn = false,
   targetMap = {},
@@ -167,8 +167,8 @@ let update = () => {
     c.font = '24px serif';
     c.fillText(
       p.o,
-      p.x - SIZE / 2,
-      p.y + SIZE / 2 + ((elapsed + emojis.indexOf(p.o)) % 5)
+      p.x - SIZE / 2, 
+      p.y + SIZE / 2
     );
 
     //find closest target piece
