@@ -11,7 +11,7 @@ html {
 #bg-wrapper {
   background-color: #000;
   background-repeat: no-repeat;
-  background: url('/images/landscape.png') no-repeat 0 0;
+  background: url('/images/landscape.webp') no-repeat 0 0;
   background-size: 1600px;
   background-position: center top;
   height: 961px;
@@ -497,7 +497,7 @@ z-index: 0;
 
 /* Move the button a bit further up so its not hidden on scroll */
 @media (orientation: landscape) and (max-width: 1200px) {
-  
+                     
 
 
   #play-area-wrap, #intro-screen, #win-paper, #win-rock, #win-scissors { 

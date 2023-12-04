@@ -39,6 +39,10 @@ const displayWinner = (p) => {
   document.querySelector(`#win-${winnerName}`).style.display = 'block';
 };
 
+const SMALL_SCREEN_CANVAS_HEIGHT = 550;
+const SMALL_SCREEN_BREAKPOINT = 1199;
+const isSmallScreen = innerWidth < SMALL_SCREEN_BREAKPOINT;
+
 let c = a.getContext('2d'), // no more $type conditional
   w = window,
   M = Math,
@@ -52,7 +56,7 @@ let c = a.getContext('2d'), // no more $type conditional
   ],
   FPS = 30, //50fps
   SIZE = 0,
-  SPEED = 1.5,
+  SPEED = 2,
   TOUCH_DISTANCE = 30,
   gameOn = false,
   targetMap = {},
@@ -123,7 +127,9 @@ const start = () => {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
     o.x = r() * playArea.clientWidth;
-    o.y = r() * playArea.clientHeight;
+    o.y = isSmallScreen
+      ? r() * SMALL_SCREEN_CANVAS_HEIGHT
+      : r() * playArea.clientHeight;
   }
   killFeed = [];
   if (gameRestartTimeout) clearTimeout(gameRestartTimeout);
@@ -283,16 +289,25 @@ const resize = () => {
   const playArea = document.querySelector('#play-area-wrap');
 
   a.width = playArea.clientWidth;
-  a.height = playArea.clientHeight;
+  a.height = isSmallScreen ? SMALL_SCREEN_CANVAS_HEIGHT : playArea.clientHeight;
   SIZE = M.min(a.width, a.height) / 15;
   c.font = SIZE + 'px serif';
   center.x = playArea.clientWidth / 2;
-  center.y = playArea.clientHeight / 2;
+  center.y = isSmallScreen
+    ? SMALL_SCREEN_CANVAS_HEIGHT / 2
+    : playArea.clientHeight / 2;
+
+
 };
 let clear = () => {
   const playArea = document.querySelector('#play-area-wrap');
   c.fillStyle = '#1C263F';
-  c.rect(0, 0, playArea.clientWidth, playArea.clientHeight);
+  c.rect(
+    0,
+    0,
+    playArea.clientWidth,
+    isSmallScreen ? SMALL_SCREEN_CANVAS_HEIGHT : playArea.clientHeight
+  );
   c.fill();
 };
 
