@@ -55,9 +55,9 @@ let c = a.getContext('2d'), // no more $type conditional
       rules: '✂️ cuts 📄 covers 🪨 crushes ✂️',
     },
   ],
-  FPS = 120, //50fps
+  FPS = 30, //50fps
   SIZE = 0,
-  SPEED = 10;
+  SPEED = 1.5;
   TOUCH_DISTANCE = 20,
   gameOn = false,
   targetMap = {},
