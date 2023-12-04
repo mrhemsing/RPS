@@ -3,6 +3,11 @@ const emojiNames = {
   '📄': 'paper',
   '✂️': 'scissors',
 };
+
+const isSmallScreen = () => {
+  const SMALL_SCREEN_BREAKPOINT = 1199;
+  return window.innerWidth < SMALL_SCREEN_BREAKPOINT;
+};
 const hideAll = () => {
   document
     .querySelectorAll('canvas, #win-screen, #round-screen, #intro-screen')
@@ -41,9 +46,6 @@ const displayWinner = (p) => {
 
 
 const SMALL_SCREEN_CANVAS_HEIGHT = 550;
-const SMALL_SCREEN_BREAKPOINT = 1199;
-const isSmallScreen = innerWidth < SMALL_SCREEN_BREAKPOINT;
-
 let c = a.getContext('2d'), // no more $type conditional
   w = window,
   M = Math,
@@ -57,18 +59,18 @@ let c = a.getContext('2d'), // no more $type conditional
   ],
   FPS = 30, //50fps
   SIZE = 0,
-  SPEED = 2;
-  TOUCH_DISTANCE = 20,
-  gameOn = false,
-  targetMap = {},
-  center = {},
-  emojis = [],
-  killFeed = [],
-  pieces = new Array(60).fill().map(() => ({ o: '', x: 0, y: 0 })),
-  myInterval = null,
-  gameRestartTimeout = null,
-  gameStartTimeout = null,
-  selected = ruleSets[0];
+  SPEED = isSmallScreen() ? 1.5 : 2;
+(TOUCH_DISTANCE = 20),
+  (gameOn = false),
+  (targetMap = {}),
+  (center = {}),
+  (emojis = []),
+  (killFeed = []),
+  (pieces = new Array(60).fill().map(() => ({ o: '', x: 0, y: 0 }))),
+  (myInterval = null),
+  (gameRestartTimeout = null),
+  (gameStartTimeout = null),
+  (selected = ruleSets[0]);
 
 const startButton = document.querySelector('#startButton');
 startButton.addEventListener('click', () => {
@@ -114,6 +116,7 @@ const start = () => {
 
   const playArea = document.querySelector('#play-area-wrap');
 
+
   if (rounds > 1) {
     showRoundScreen(true);
     showStartButton(true);
@@ -128,7 +131,7 @@ const start = () => {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
     o.x = r() * playArea.clientWidth;
-    o.y = isSmallScreen
+    o.y = isSmallScreen()
       ? r() * SMALL_SCREEN_CANVAS_HEIGHT
       : r() * playArea.clientHeight;
   }
@@ -165,11 +168,7 @@ let update = () => {
     //render
     c.fillStyle = '#f4f4f4';
     c.font = '24px serif';
-    c.fillText(
-      p.o,
-      p.x - SIZE / 2, 
-      p.y + SIZE / 2
-    );
+    c.fillText(p.o, p.x - SIZE / 2, p.y + SIZE / 2);
 
     //find closest target piece
     targets = pieces.filter((p2) => isTarget(p, p2));
@@ -285,10 +284,13 @@ onload = () => init();
 //---------------------------------------------------
 // Utility functions
 //---------------------------------------------------
+
 const resize = () => {
   //adjust sizes of things whenever window is resized
+  const SMALL_SCREEN_BREAKPOINT = 1199;
+  const isSmallScreen = window.innerWidth < SMALL_SCREEN_BREAKPOINT;
+  SPEED = isSmallScreen ? 1.5 : 2;
   const playArea = document.querySelector('#play-area-wrap');
-
   a.width = playArea.clientWidth;
   a.height = isSmallScreen ? SMALL_SCREEN_CANVAS_HEIGHT : playArea.clientHeight;
   SIZE = M.min(a.width, a.height) / 15;
@@ -298,16 +300,18 @@ const resize = () => {
     ? SMALL_SCREEN_CANVAS_HEIGHT / 2
     : playArea.clientHeight / 2;
 
-
+  clear();
 };
 let clear = () => {
+
+
   const playArea = document.querySelector('#play-area-wrap');
   c.fillStyle = '#1C263F';
   c.rect(
     0,
     0,
     playArea.clientWidth,
-    isSmallScreen ? SMALL_SCREEN_CANVAS_HEIGHT : playArea.clientHeight
+    isSmallScreen() ? SMALL_SCREEN_CANVAS_HEIGHT : playArea.clientHeight
   );
   c.fill();
 };
