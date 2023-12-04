@@ -39,6 +39,7 @@ const displayWinner = (p) => {
   document.querySelector(`#win-${winnerName}`).style.display = 'block';
 };
 
+
 const SMALL_SCREEN_CANVAS_HEIGHT = 550;
 const SMALL_SCREEN_BREAKPOINT = 1199;
 const isSmallScreen = innerWidth < SMALL_SCREEN_BREAKPOINT;
@@ -54,10 +55,10 @@ let c = a.getContext('2d'), // no more $type conditional
       rules: '✂️ cuts 📄 covers 🪨 crushes ✂️',
     },
   ],
-  FPS = 30, //50fps
+  FPS = 120, //50fps
   SIZE = 0,
-  SPEED = 2,
-  TOUCH_DISTANCE = 30,
+  SPEED = 10;
+  TOUCH_DISTANCE = 20,
   gameOn = false,
   targetMap = {},
   center = {},
@@ -162,7 +163,7 @@ let update = () => {
   pieces.map((p) => {
     if (!p.o) return;
     //render
-    c.fillStyle = 'white';
+    c.fillStyle = '#f4f4f4';
     c.font = '24px serif';
     c.fillText(
       p.o,

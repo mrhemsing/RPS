@@ -1,6 +1,11 @@
 @import url('./variables.css');
 
 
+@font-face {
+  font-family: "Neonblitz";
+  src: url('./Neonblitz.woff2');
+}
+
 
 body,
 html {
@@ -399,6 +404,8 @@ canvas {
     font-size:20px;
     position: relative; 
     z-index: 1;
+    font-family: "Neonblitz";
+    font-weight: lighter;
     @media(min-width:400px) { 
 
       font-size:32px; 
