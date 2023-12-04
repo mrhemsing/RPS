@@ -156,18 +156,7 @@ canvas {
   }
 }
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
-  #startButton {
-    border-radius: 20px;
-    border: white;
-    color: white;
-    margin-left: -7% !important;
-    height: 40px;
-    font-size: 16px;
-    text-align: center;
-    cursor: pointer;
-    margin-top: -112px !important;
-    /* position: absolute; */
-  }
+
   #header {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
@@ -254,7 +243,8 @@ canvas {
 
   #bg-wrapper { 
     background: none;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     background: url('./images/landscape-mobile.webp');
     background-size: cover;
   }
@@ -396,20 +386,18 @@ canvas {
       @media(min-width:500px) { 
         padding: 0 32px;
         font-size:16px; 
+        height: 90px;
       }
   }
 
 
   .scoreboard-title {
-    font-size:20px;
     position: relative; 
     z-index: 1;
     font-family: "Neonblitz";
+    font-size:40px; 
     font-weight: lighter;
-    @media(min-width:400px) { 
-
-      font-size:32px; 
-    }
+    font-size: 56px;
   }
 
 
@@ -506,6 +494,9 @@ z-index: 0;
 @media (orientation: landscape) and (max-width: 1200px) {
                      
 
+  #bg-wrapper {
+    min-height: 100vw;
+  }
 
   #play-area-wrap, #intro-screen, #win-paper, #win-rock, #win-scissors { 
       max-height: 50vh !important;
@@ -518,9 +509,7 @@ z-index: 0;
   img { 
     object-fit: cover;
   }
-  .scoreboard, .wincount-item {
-     height: 50px;
-  }
+
   .wincount-item { 
     font-size: 20px;
   }
