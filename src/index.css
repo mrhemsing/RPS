@@ -255,7 +255,7 @@ canvas {
   #bg-wrapper { 
     background: none;
     height: 100vh;
-    background: url('./images/landscape.webp');
+    background: url('./images/landscape-mobile.webp');
     background-size: cover;
   }
 
