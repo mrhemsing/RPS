@@ -403,28 +403,7 @@ canvas {
     }
   }
 
-  .scoreboard-text {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    gap:8px;
-    display: flex;
-    align-items: center;
-    gap:8px;
-  }
 
-  .scoreboard-border {
-     border: 1px solid #BBBBBB;
-    border-radius: var(--radius-default);
-  }
-
-  .scoreboard-borders {
-    display: flex;
-    flex-direction: column;
-    gap:1px;
-    width: 100%;
-
-  }
 
 .scoreboard-blur { 
 background:#244EA7;
