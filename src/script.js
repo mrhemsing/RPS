@@ -50,9 +50,9 @@ let c = a.getContext('2d'), // no more $type conditional
       rules: '✂️ cuts 📄 covers 🪨 crushes ✂️',
     },
   ],
-  FPS = 50, //50fps
+  FPS = 30, //50fps
   SIZE = 0,
-  SPEED = window.innerWidth > 1200 ? 5 : 2,
+  SPEED = 1.5,
   TOUCH_DISTANCE = 30,
   gameOn = false,
   targetMap = {},
@@ -107,6 +107,8 @@ const start = () => {
   const scissors = document.querySelector('#scissor');
   scissors.classList.remove('score-animation');
 
+  const playArea = document.querySelector('#play-area-wrap');
+
   if (rounds > 1) {
     showRoundScreen(true);
     showStartButton(true);
@@ -120,9 +122,8 @@ const start = () => {
   for (let i = 0; i < 60; i++) {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
-    o.x = r() * innerWidth;
-    const VIEWPORT_MARGIN = 62 
-    o.y = r() * window.innerHeight - VIEWPORT_MARGIN;
+    o.x = r() * playArea.clientWidth;
+    o.y = r() * playArea.clientHeight;
   }
   killFeed = [];
   if (gameRestartTimeout) clearTimeout(gameRestartTimeout);
@@ -156,7 +157,7 @@ let update = () => {
     if (!p.o) return;
     //render
     c.fillStyle = 'white';
-    c.font = window.innerWidth > 1200 ? '65px serif' : '24px serif';
+    c.font = '24px serif';
     c.fillText(
       p.o,
       p.x - SIZE / 2,
@@ -279,18 +280,19 @@ onload = () => init();
 //---------------------------------------------------
 const resize = () => {
   //adjust sizes of things whenever window is resized
+  const playArea = document.querySelector('#play-area-wrap');
 
-  a.width = innerWidth;
-  const VIEWPORT_MARGIN = 124
-  a.height = window.innerHeight - 124;
+  a.width = playArea.clientWidth;
+  a.height = playArea.clientHeight;
   SIZE = M.min(a.width, a.height) / 15;
   c.font = SIZE + 'px serif';
-  center.x = innerWidth / 2;
-  center.y = innerHeight / 2;
+  center.x = playArea.clientWidth / 2;
+  center.y = playArea.clientHeight / 2;
 };
 let clear = () => {
+  const playArea = document.querySelector('#play-area-wrap');
   c.fillStyle = '#1C263F';
-  c.rect(0, 0, innerWidth, innerHeight);
+  c.rect(0, 0, playArea.clientWidth, playArea.clientHeight);
   c.fill();
 };
 
