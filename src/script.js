@@ -3,6 +3,11 @@ const emojiNames = {
   '📄': 'paper',
   '✂️': 'scissors',
 };
+
+const isSmallScreen = () => {
+  const SMALL_SCREEN_BREAKPOINT = 1199;
+  return window.innerWidth < SMALL_SCREEN_BREAKPOINT;
+};
 const hideAll = () => {
   document
     .querySelectorAll('canvas, #win-screen, #round-screen, #intro-screen')
@@ -39,6 +44,8 @@ const displayWinner = (p) => {
   document.querySelector(`#win-${winnerName}`).style.display = 'block';
 };
 
+
+const SMALL_SCREEN_CANVAS_HEIGHT = 550;
 let c = a.getContext('2d'), // no more $type conditional
   w = window,
   M = Math,
@@ -50,20 +57,20 @@ let c = a.getContext('2d'), // no more $type conditional
       rules: '✂️ cuts 📄 covers 🪨 crushes ✂️',
     },
   ],
-  FPS = 50, //50fps
+  FPS = 30, //50fps
   SIZE = 0,
-  SPEED = window.innerWidth > 1200 ? 5 : 2,
-  TOUCH_DISTANCE = 30,
-  gameOn = false,
-  targetMap = {},
-  center = {},
-  emojis = [],
-  killFeed = [],
-  pieces = new Array(60).fill().map(() => ({ o: '', x: 0, y: 0 })),
-  myInterval = null,
-  gameRestartTimeout = null,
-  gameStartTimeout = null,
-  selected = ruleSets[0];
+  SPEED = isSmallScreen() ? 1.5 : 2;
+(TOUCH_DISTANCE = 20),
+  (gameOn = false),
+  (targetMap = {}),
+  (center = {}),
+  (emojis = []),
+  (killFeed = []),
+  (pieces = new Array(60).fill().map(() => ({ o: '', x: 0, y: 0 }))),
+  (myInterval = null),
+  (gameRestartTimeout = null),
+  (gameStartTimeout = null),
+  (selected = ruleSets[0]);
 
 const startButton = document.querySelector('#startButton');
 startButton.addEventListener('click', () => {
@@ -107,6 +114,9 @@ const start = () => {
   const scissors = document.querySelector('#scissor');
   scissors.classList.remove('score-animation');
 
+  const playArea = document.querySelector('#play-area-wrap');
+
+
   if (rounds > 1) {
     showRoundScreen(true);
     showStartButton(true);
@@ -120,9 +130,10 @@ const start = () => {
   for (let i = 0; i < 60; i++) {
     o = pieces[i];
     o.o = emojis[i % emojis.length];
-    o.x = r() * innerWidth;
-    const VIEWPORT_MARGIN = 62 
-    o.y = r() * window.innerHeight - VIEWPORT_MARGIN;
+    o.x = r() * playArea.clientWidth;
+    o.y = isSmallScreen()
+      ? r() * SMALL_SCREEN_CANVAS_HEIGHT
+      : r() * playArea.clientHeight;
   }
   killFeed = [];
   if (gameRestartTimeout) clearTimeout(gameRestartTimeout);
@@ -155,13 +166,9 @@ let update = () => {
   pieces.map((p) => {
     if (!p.o) return;
     //render
-    c.fillStyle = 'white';
-    c.font = window.innerWidth > 1200 ? '65px serif' : '24px serif';
-    c.fillText(
-      p.o,
-      p.x - SIZE / 2,
-      p.y + SIZE / 2 + ((elapsed + emojis.indexOf(p.o)) % 5)
-    );
+    c.fillStyle = '#f4f4f4';
+    c.font = '24px serif';
+    c.fillText(p.o, p.x - SIZE / 2, p.y + SIZE / 2);
 
     //find closest target piece
     targets = pieces.filter((p2) => isTarget(p, p2));
@@ -277,20 +284,35 @@ onload = () => init();
 //---------------------------------------------------
 // Utility functions
 //---------------------------------------------------
+
 const resize = () => {
   //adjust sizes of things whenever window is resized
-
-  a.width = innerWidth;
-  const VIEWPORT_MARGIN = 124
-  a.height = window.innerHeight - 124;
+  const SMALL_SCREEN_BREAKPOINT = 1199;
+  const isSmallScreen = window.innerWidth < SMALL_SCREEN_BREAKPOINT;
+  SPEED = isSmallScreen ? 1.5 : 2;
+  const playArea = document.querySelector('#play-area-wrap');
+  a.width = playArea.clientWidth;
+  a.height = isSmallScreen ? SMALL_SCREEN_CANVAS_HEIGHT : playArea.clientHeight;
   SIZE = M.min(a.width, a.height) / 15;
   c.font = SIZE + 'px serif';
-  center.x = innerWidth / 2;
-  center.y = innerHeight / 2;
+  center.x = playArea.clientWidth / 2;
+  center.y = isSmallScreen
+    ? SMALL_SCREEN_CANVAS_HEIGHT / 2
+    : playArea.clientHeight / 2;
+
+  clear();
 };
 let clear = () => {
+
+
+  const playArea = document.querySelector('#play-area-wrap');
   c.fillStyle = '#1C263F';
-  c.rect(0, 0, innerWidth, innerHeight);
+  c.rect(
+    0,
+    0,
+    playArea.clientWidth,
+    isSmallScreen() ? SMALL_SCREEN_CANVAS_HEIGHT : playArea.clientHeight
+  );
   c.fill();
 };
 
