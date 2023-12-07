@@ -378,7 +378,7 @@ canvas {
       border-radius: var(--radius-default);
       display: flex;
       align-items: center;
-      height: 70px;
+      height: 80px;
       position: relative;
       font-size:14px;
       z-index: 1;
@@ -392,14 +392,17 @@ canvas {
 
 
   .scoreboard-title {
-    position: relative; 
     z-index: 1;
-    font-family: "Neonblitz";
-    font-size:40px; 
-    font-weight: lighter;
+    font-size:64px; 
     font-size: 56px;
+    display: flex;
+    position: relative;
+    z-index: 50;
   }
 
+  .scoreboard-text img { 
+    width:120px;
+  }
 
 
 .scoreboard-blur { 
@@ -411,7 +414,7 @@ position: absolute;
 top: 50%; 
 left: 50%;
 transform: translate(-50%, -50%);
-z-index: 0;
+z-index: -1;
   }
 
   .scoreboard::before, .scoreboard::after {
