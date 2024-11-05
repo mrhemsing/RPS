@@ -30,7 +30,14 @@ html {
 #wrapper span {
   padding-right: 63px;
 }
-
+#credits {
+  color: #fff;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+#credits a {
+  color: #fff;
+}
 #header {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
@@ -150,14 +157,7 @@ canvas {
     margin-left: -58px !important;
   }
 }
-#credits {
-  color: #fff;
-  font-size: 1rem;
-  margin-top: 1rem;
-}
-#credits a {
-  color: #fff;
-}
+
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   #header {
     text-align: center;
